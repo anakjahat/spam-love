@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fce4ec;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .love-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        .heart {
+            position: absolute;
+            color: #ff4081;
+            font-size: 24px;
+            animation: floatUp 1.5s ease-out forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <button class="love-button" onclick="createHearts(event)">klik aku deh</button>
+    <script>
+        function createHearts(event) {
+            let button = event.target;
+            let rect = button.getBoundingClientRect();
+            let numberOfHearts = Math.floor(Math.random() * 5) + 3; // Generate 3-7 hearts per click
+            
+            for (let i = 0; i < numberOfHearts; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+                heart.style.left = `${Math.random() * rect.width - rect.width / 2}px`;
+                heart.style.top = `${Math.random() * -30}px`;
+                heart.style.position = "absolute";
+                heart.style.transform = `scale(${Math.random() * 0.7 + 0.5})`;
+                heart.style.animationDelay = `${Math.random() * 0.3}s`;
+                
+                button.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 1500);
+            }
+        }
+    </script>
+</body>
+</html>
