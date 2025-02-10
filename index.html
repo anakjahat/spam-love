@@ -16,8 +16,8 @@
             position: relative;
         }
         .love-button {
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 10px 20px; /* Ukuran tombol diperkecil */
+            font-size: 16px; /* Font tombol diperkecil */
             background-color: #e91e63;
             color: white;
             border: none;
@@ -42,7 +42,7 @@
         }
         @media (max-width: 768px) {
             .heart {
-                font-size: 20px; /* Ukuran lebih kecil di HP */
+                font-size: 20px;
             }
             @keyframes floatUp {
                 0% { transform: translateY(0) scale(1); opacity: 1; }
@@ -56,49 +56,50 @@
     </style>
 </head>
 <body>
-    <button class="love-button" onclick="createHearts(event)">pencet aku deh</button>
+    <button class="love-button" onclick="createHearts(event)">pencet aku</button>
     <script>
         let clickCount = 0;
         function createHearts(event) {
             clickCount++;
             let button = event.target;
             let rect = button.getBoundingClientRect();
-            let numberOfHearts = Math.floor(Math.random() * 5) + 3; // Generate 3-7 hearts per click
+            let numberOfHearts = Math.floor(Math.random() * 5) + 3;
             
             for (let i = 0; i < numberOfHearts; i++) {
                 let heart = document.createElement("div");
                 heart.innerHTML = "❤️";
                 heart.classList.add("heart");
-                heart.style.left = `${Math.random() * rect.width - rect.width / 4}px`; // Lebih stabil
+                heart.style.left = `${Math.random() * rect.width - rect.width / 4}px`;
                 heart.style.top = `${Math.random() * -30}px`;
                 heart.style.position = "absolute";
                 heart.style.transform = `scale(${Math.random() * 0.7 + 0.5})`;
-                heart.style.animationDelay = `${Math.random() * 0.3}s`;
+                heart.style.animationDelay = `${Math.random() * 0.3}s`; 
                 
                 button.appendChild(heart);
                 
-                setTimeout(() => heart.remove(), 2000);
+                setTimeout(() => heart.remove(), 1500);
             }
             
-            if (clickCount === 12) {
+            if (clickCount === 30) {
                 explodeHearts();
-                clickCount = 0; // Reset counter after explosion
+                clickCount = 0;
             }
         }
         
         function explodeHearts() {
-            for (let i = 0; i < 50; i++) { // Banyaknya love meledak
-                let heart = document.createElement("div");
-                heart.innerHTML = "❤️";
-                heart.classList.add("heart");
-                heart.style.position = "absolute";
-                heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.top = `${Math.random() * 100}vh`;
-                heart.style.transform = `scale(${Math.random() * 1.5 + 0.5})`;
-                heart.style.animation = "explode 1s ease-out forwards";
-                document.body.appendChild(heart);
-                
-               setTimeout(() => heart.remove(), 1000);
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    let heart = document.createElement("div");
+                    heart.innerHTML = "❤️";
+                    heart.classList.add("heart");
+                    heart.style.position = "absolute";
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.top = `${Math.random() * 100}vh`;
+                    heart.style.transform = `scale(${Math.random() * 1.5 + 0.5})`;
+                    heart.style.animation = "explode 1s ease-out forwards";
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 1000);
                 }, i * 10);
             }
         }
