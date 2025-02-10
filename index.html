@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spam Love</title>
+    <title>Love Button</title>
     <style>
         body {
             display: flex;
@@ -26,18 +26,32 @@
         }
         .heart {
             position: absolute;
-            color: #ff4081;
             font-size: 24px;
             animation: floatUp 1.5s ease-out forwards;
         }
+        .heart:nth-child(even) {
+            color: #ff4081;
+        }
+        .heart:nth-child(odd) {
+            color: white;
+        }
         @keyframes floatUp {
             0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+            100% { transform: translateY(-150px) translateX(30px) scale(1.5); opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            .heart {
+                font-size: 20px; /* Ukuran lebih kecil di HP */
+            }
+            @keyframes floatUp {
+                0% { transform: translateY(0) scale(1); opacity: 1; }
+                100% { transform: translateY(-120px) translateX(20px) scale(1.3); opacity: 0; }
+            }
         }
     </style>
 </head>
 <body>
-    <button class="love-button" onclick="createHearts(event)">klik aku deh</button>
+    <button class="love-button" onclick="createHearts(event)">pencet aku</button>
     <script>
         function createHearts(event) {
             let button = event.target;
@@ -48,7 +62,7 @@
                 let heart = document.createElement("div");
                 heart.innerHTML = "❤️";
                 heart.classList.add("heart");
-                heart.style.left = `${Math.random() * rect.width - rect.width / 2}px`;
+                heart.style.left = `${Math.random() * rect.width - rect.width / 4}px`; // Lebih stabil
                 heart.style.top = `${Math.random() * -30}px`;
                 heart.style.position = "absolute";
                 heart.style.transform = `scale(${Math.random() * 0.7 + 0.5})`;
